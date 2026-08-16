@@ -151,7 +151,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
       {/* Quick Actions & User Profile */}
       <div className="flex items-center gap-6 ml-4">
         {/* Actions */}
-        <div className="flex items-center gap-4 text-gray-600 dark:text-gray-300">
+        <div className="hidden lg:flex items-center gap-4 text-gray-600 dark:text-gray-300">
           
           {/* Calculator Popup */}
           <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" ref={calcRef}>
@@ -421,7 +421,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
             <div className="w-9 h-9 rounded-full bg-blue-100 dark:bg-slate-800 flex items-center justify-center text-blue-700 dark:text-blue-400 font-bold overflow-hidden border border-blue-200 dark:border-slate-700">
                <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin" className="w-full h-full object-cover" />
             </div>
-            <div>
+            <div className="hidden sm:block">
               <div className="text-sm font-bold text-gray-800 dark:text-slate-100 leading-tight">ADMIN</div>
               <div className="text-[11px] text-gray-500 dark:text-gray-400">Super Admin</div>
             </div>
