@@ -157,7 +157,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
           <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" ref={calcRef}>
             <div onClick={() => setIsCalcOpen(!isCalcOpen)} className="flex flex-col items-center">
               <Calculator size={20} strokeWidth={1.5} />
-              <span className="text-[10px] mt-1 font-medium">Calculator</span>
+              <span className="hidden xl:block text-[10px] mt-1 font-medium">Calculator</span>
             </div>
             {isCalcOpen && (
               <div className="absolute top-12 left-1/2 -translate-x-1/2 w-48 bg-slate-150 dark:bg-slate-900 border dark:border-slate-800 rounded-lg p-2 shadow-xl z-50 text-slate-800 dark:text-slate-100">
@@ -186,7 +186,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
           <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" ref={noteRef}>
             <div onClick={() => setIsNoteOpen(!isNoteOpen)} className="flex flex-col items-center">
               <StickyNote size={20} strokeWidth={1.5} />
-              <span className="text-[10px] mt-1 font-medium">Notepad</span>
+              <span className="hidden xl:block text-[10px] mt-1 font-medium">Notepad</span>
             </div>
             {isNoteOpen && (
               <div className="absolute top-12 left-1/2 -translate-x-1/2 w-64 bg-amber-50 dark:bg-slate-900 border border-amber-200 dark:border-slate-800 rounded-lg p-3 shadow-xl z-50 text-slate-800 dark:text-slate-100">
@@ -208,7 +208,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
           <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" ref={calRef}>
             <div onClick={() => setIsCalOpen(!isCalOpen)} className="flex flex-col items-center">
               <CalendarIcon size={20} strokeWidth={1.5} />
-              <span className="text-[10px] mt-1 font-medium">Calendar</span>
+              <span className="hidden xl:block text-[10px] mt-1 font-medium">Calendar</span>
             </div>
             {isCalOpen && (
               <div className="absolute top-12 left-1/2 -translate-x-1/2 w-56 bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-lg p-3 shadow-xl z-50 text-slate-800 dark:text-slate-100">
@@ -242,7 +242,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
                 <Bell size={20} strokeWidth={1.5} />
                 <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full min-w-[16px] text-center">4</span>
               </div>
-              <span className="text-[10px] mt-1 font-medium">Reminder</span>
+              <span className="hidden xl:block text-[10px] mt-1 font-medium">Reminder</span>
             </div>
             {isReminderOpen && (
               <div className="absolute top-12 right-0 w-64 bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-lg shadow-xl z-50 py-1 text-slate-800 dark:text-slate-100 text-xs font-semibold">
@@ -264,7 +264,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
                 <MessageSquare size={20} strokeWidth={1.5} />
                 <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full min-w-[16px] text-center">5</span>
               </div>
-              <span className="text-[10px] mt-1 font-medium">Message</span>
+              <span className="hidden xl:block text-[10px] mt-1 font-medium">Message</span>
             </div>
             {isMessageOpen && (
               <div className="absolute top-12 right-0 w-64 bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-lg shadow-xl z-50 py-1 text-slate-800 dark:text-slate-100 text-xs font-semibold">
@@ -286,7 +286,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
               className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none bg-transparent border-0 p-0 text-gray-600 dark:text-gray-300"
             >
               <PlusCircle size={20} strokeWidth={1.5} />
-              <span className="text-[10px] mt-1 font-medium flex items-center gap-0.5">
+              <span className="hidden xl:block text-[10px] mt-1 font-medium flex items-center gap-0.5">
                 Add Entry <ChevronDown size={10} />
               </span>
             </button>
@@ -316,7 +316,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
           {/* Fullscreen */}
           <div className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" onClick={toggleFullscreen}>
             {isFullscreen ? <Minimize size={20} strokeWidth={1.5} /> : <Maximize size={20} strokeWidth={1.5} />}
-            <span className="text-[10px] mt-1 font-medium">{isFullscreen ? 'Exit Full' : 'Fullscreen'}</span>
+            <span className="hidden xl:block text-[10px] mt-1 font-medium">{isFullscreen ? 'Exit Full' : 'Fullscreen'}</span>
           </div>
 
           {/* Dark Mode */}
@@ -326,7 +326,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
             title={isDarkMode ? "Switch to Light Theme" : "Switch to Dark Theme"}
           >
             {isDarkMode ? <Sun size={20} strokeWidth={1.5} className="text-amber-400" /> : <Moon size={20} strokeWidth={1.5} />}
-            <span className="text-[10px] mt-1 font-medium">{isDarkMode ? 'Light' : 'Dark'}</span>
+            <span className="hidden xl:block text-[10px] mt-1 font-medium">{isDarkMode ? 'Light' : 'Dark'}</span>
           </div>
 
           {/* Keyboard Shortcuts Settings Manager */}
@@ -337,7 +337,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
               title="Manage Shortcut Keys"
             >
               <Keyboard size={20} strokeWidth={1.5} />
-              <span className="text-[10px] mt-1 font-medium">Shortcuts</span>
+              <span className="hidden xl:block text-[10px] mt-1 font-medium">Shortcuts</span>
             </div>
 
             {isShortcutManagerOpen && (
@@ -406,7 +406,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
           {/* Help & Support */}
           <div className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" onClick={() => navigate('/setup/help-support')}>
             <HelpCircle size={20} strokeWidth={1.5} />
-            <span className="text-[10px] mt-1 font-medium">Help</span>
+            <span className="hidden xl:block text-[10px] mt-1 font-medium">Help</span>
           </div>
         </div>
 
