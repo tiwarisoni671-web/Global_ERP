@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { 
   Search, 
   Calculator, 
@@ -13,15 +14,30 @@ import {
   Maximize,
   Minimize,
   Sun,
-  Moon
+  Moon,
+  PlusCircle
 } from 'lucide-react';
 
 export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
+  const navigate = useNavigate();
   const [isFullscreen, setIsFullscreen] = React.useState(false);
   const [isDarkMode, setIsDarkMode] = React.useState(() => {
     return localStorage.getItem('theme') === 'dark' || 
       (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
   });
+  
+  const [isAddMenuOpen, setIsAddMenuOpen] = useState(false);
+  const addMenuRef = useRef(null);
+
+  useEffect(() => {
+    const clickOutside = (e) => {
+      if (addMenuRef.current && !addMenuRef.current.contains(e.target)) {
+        setIsAddMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', clickOutside);
+    return () => document.removeEventListener('mousedown', clickOutside);
+  }, []);
 
   React.useEffect(() => {
     if (isDarkMode) {
@@ -107,6 +123,40 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
               <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full min-w-[16px] text-center">5</span>
             </div>
             <span className="text-[10px] mt-1 font-medium">Message</span>
+          </div>
+
+          {/* Quick Add Modules Dropdown */}
+          <div className="relative shrink-0 flex flex-col items-center" ref={addMenuRef}>
+            <button 
+              onClick={() => setIsAddMenuOpen(!isAddMenuOpen)}
+              className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none bg-transparent border-0 p-0 text-gray-600 dark:text-gray-300"
+            >
+              <PlusCircle size={20} strokeWidth={1.5} />
+              <span className="text-[10px] mt-1 font-medium flex items-center gap-0.5">
+                Add Entry <ChevronDown size={10} />
+              </span>
+            </button>
+            {isAddMenuOpen && (
+              <div className="absolute right-0 mt-2 w-52 bg-white dark:bg-slate-900 border border-gray-250 dark:border-slate-800 rounded-lg shadow-lg z-50 py-1.5 divide-y divide-gray-150 dark:divide-slate-800 text-[11px] font-semibold">
+                <div className="py-1">
+                  <Link to="/sales/add-sale" onClick={() => setIsAddMenuOpen(false)} className="block px-4 py-1.5 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800">Sale Entry</Link>
+                  <Link to="/purchases/add-purchase" onClick={() => setIsAddMenuOpen(false)} className="block px-4 py-1.5 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800">Purchase Entry</Link>
+                  <Link to="/receipt/new" onClick={() => setIsAddMenuOpen(false)} className="block px-4 py-1.5 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800">Receipt Entry</Link>
+                  <Link to="/payment/new" onClick={() => setIsAddMenuOpen(false)} className="block px-4 py-1.5 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800">Payment Entry</Link>
+                </div>
+                <div className="py-1">
+                  <Link to="/bank-receipt/new" onClick={() => setIsAddMenuOpen(false)} className="block px-4 py-1.5 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800">Bank Receipt</Link>
+                  <Link to="/bank-payment/new" onClick={() => setIsAddMenuOpen(false)} className="block px-4 py-1.5 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800">Bank Payment</Link>
+                  <Link to="/contra/new" onClick={() => setIsAddMenuOpen(false)} className="block px-4 py-1.5 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800">Contra Entry</Link>
+                  <Link to="/journal/new" onClick={() => setIsAddMenuOpen(false)} className="block px-4 py-1.5 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800">Journal Entry</Link>
+                </div>
+                <div className="py-1">
+                  <Link to="/stock-entry/new" onClick={() => setIsAddMenuOpen(false)} className="block px-4 py-1.5 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800">Stock Entry</Link>
+                  <Link to="/stock-transfer/new" onClick={() => setIsAddMenuOpen(false)} className="block px-4 py-1.5 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800">Stock Transfer</Link>
+                  <Link to="/products/add-product" onClick={() => setIsAddMenuOpen(false)} className="block px-4 py-1.5 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800">Add Product</Link>
+                </div>
+              </div>
+            )}
           </div>
           <div className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" onClick={toggleFullscreen}>
             {isFullscreen ? <Minimize size={20} strokeWidth={1.5} /> : <Maximize size={20} strokeWidth={1.5} />}

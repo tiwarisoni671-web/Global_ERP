@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Building, Hotel, UtensilsCrossed, Stethoscope, HeartPulse, Factory, Store, GraduationCap, Settings2, HelpCircle, FileText, MonitorPlay, Sparkles, MonitorSmartphone, DownloadCloud, MessageCircleQuestion } from 'lucide-react';
 
 export const IndustrySolutions = () => {
@@ -41,19 +42,20 @@ export const IndustrySolutions = () => {
 };
 
 export const ShortcutKeys = () => {
+  const navigate = useNavigate();
   const shortcuts = [
-    { key: 'F2', label: 'Sale Entry' },
-    { key: 'F3', label: 'Purchase Entry' },
-    { key: 'F4', label: 'Receipt Entry' },
-    { key: 'F5', label: 'Payment Entry' },
-    { key: 'F6', label: 'Bank Receipt' },
-    { key: 'F7', label: 'Bank Payment' },
-    { key: 'F8', label: 'Journal Entry' },
-    { key: 'F9', label: 'Stock View' },
-    { key: 'F10', label: 'Stock Entry' },
-    { key: 'F11', label: 'Stock Transfer' },
-    { key: 'Ctrl+L', label: 'Ledger' },
-    { key: 'Ctrl+O', label: 'Outstanding' },
+    { key: 'F2', label: 'Sale Entry', to: '/sales/add-sale' },
+    { key: 'F3', label: 'Purchase Entry', to: '/purchases/add-purchase' },
+    { key: 'F4', label: 'Receipt Entry', to: '/receipt/new' },
+    { key: 'F5', label: 'Payment Entry', to: '/payment/new' },
+    { key: 'F6', label: 'Bank Receipt', to: '/bank-receipt/new' },
+    { key: 'F7', label: 'Bank Payment', to: '/bank-payment/new' },
+    { key: 'F8', label: 'Journal Entry', to: '/journal/new' },
+    { key: 'F9', label: 'Stock View', to: '/products/product-list' },
+    { key: 'F10', label: 'Stock Entry', to: '/stock-entry/new' },
+    { key: 'F11', label: 'Stock Transfer', to: '/stock-transfer/new' },
+    { key: 'Ctrl+L', label: 'Ledger', to: '/reports/accounts/ledger-voucher' },
+    { key: 'Ctrl+O', label: 'Outstanding', to: '/reports/mis/kpi-reports' },
   ];
 
   return (
@@ -61,7 +63,11 @@ export const ShortcutKeys = () => {
       <div className="text-sm font-bold text-blue-900 dark:text-slate-100 tracking-wide uppercase mb-4">Shortcut Keys</div>
       <div className="flex flex-wrap gap-2 lg:justify-between">
         {shortcuts.map((item, idx) => (
-          <div key={idx} className="flex flex-col items-center min-w-[70px] group cursor-pointer">
+          <div 
+            key={idx} 
+            onClick={() => navigate(item.to)}
+            className="flex flex-col items-center min-w-[70px] group cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 p-1.5 rounded transition"
+          >
              <div className="text-blue-500 dark:text-blue-450 font-bold text-sm mb-1 group-hover:text-blue-600 transition-colors">{item.key}</div>
              <div className="text-[10px] font-medium text-gray-600 dark:text-slate-400">{item.label}</div>
           </div>

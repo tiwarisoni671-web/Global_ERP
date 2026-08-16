@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import {
   LayoutDashboard,
   Users,
@@ -382,31 +382,58 @@ const Sidebar = ({ onClose }) => {
               { text: 'Performance', to: '/reports/purchases/performance' }
             ]}
           />
-          <MenuItem icon={FileText} text="MIS Reports" />
-          <MenuItem icon={FileText} text="GST Reports" />
-          <MenuItem icon={FileText} text="TDS Reports" />
+          <MenuItem
+            icon={FileText}
+            text="MIS Reports"
+            subItems={[
+              { text: 'Management Dashboard', to: '/reports/mis/management-dashboard' },
+              { text: 'Performance Analysis', to: '/reports/mis/performance-analysis' },
+              { text: 'Business Analysis', to: '/reports/mis/business-analysis' },
+              { text: 'KPI Reports', to: '/reports/mis/kpi-reports' }
+            ]}
+          />
+          <MenuItem
+            icon={FileText}
+            text="GST Reports"
+            subItems={[
+              { text: 'GST Sales', to: '/reports/gst/sales' },
+              { text: 'GST Purchase', to: '/reports/gst/purchase' },
+              { text: 'Tax Analysis', to: '/reports/gst/tax-analysis' },
+              { text: 'Reconciliation', to: '/reports/gst/reconciliation' }
+            ]}
+          />
+          <MenuItem
+            icon={FileText}
+            text="TDS Reports"
+            subItems={[
+              { text: 'TDS Sales', to: '/reports/tds/sales' },
+              { text: 'TDS Purchase', to: '/reports/tds/purchase' },
+              { text: 'Tax Analysis', to: '/reports/tds/tax-analysis' },
+              { text: 'Reconciliation', to: '/reports/tds/reconciliation' }
+            ]}
+          />
         </MenuSection>
 
         <MenuSection title="SETUP" defaultOpen={true}>
-          <MenuItem icon={Settings} text="System Settings" />
-          <MenuItem icon={Repeat} text="Backup & Restore" />
-          <MenuItem icon={Layers} text="Utilities" />
+          <MenuItem icon={Settings} text="System Settings" to="/setup/system-settings" />
+          <MenuItem icon={Repeat} text="Backup & Restore" to="/setup/backup-restore" />
+          <MenuItem icon={Layers} text="Utilities" to="/setup/utilities" />
         </MenuSection>
 
         <MenuSection title="FAVOURITES" defaultOpen={true}>
           <div className="flex gap-1 p-2 flex-wrap">
             {[
-              { icon: ShoppingCart, text: 'Sale Entry', key: 'F2' },
-              { icon: FileBox, text: 'Purchase', key: 'F3' },
-              { icon: Receipt, text: 'Receipt', key: 'F4' },
-              { icon: CreditCard, text: 'Payment', key: 'F5' },
-              { icon: Banknote, text: 'Bk.Recipt', key: 'F6' }
+              { icon: ShoppingCart, text: 'Sale Entry', key: 'F2', to: '/sales/add-sale' },
+              { icon: FileBox, text: 'Purchase', key: 'F3', to: '/purchases/add-purchase' },
+              { icon: Receipt, text: 'Receipt', key: 'F4', to: '/receipt/new' },
+              { icon: CreditCard, text: 'Payment', key: 'F5', to: '/payment/new' },
+              { icon: Banknote, text: 'Bk.Recipt', key: 'F6', to: '/bank-receipt/new' }
             ].map((fav, i) => (
-              <div key={i} className="flex flex-col items-center justify-center p-2 hover:bg-slate-800 rounded cursor-pointer w-16 text-center group">
+              <Link to={fav.to} key={i} className="flex flex-col items-center justify-center p-2 hover:bg-slate-800 rounded cursor-pointer w-16 text-center group">
                 <fav.icon size={16} className="text-yellow-500 mb-1 group-hover:scale-110 transition-transform" />
                 <span className="text-[9px] text-gray-300 leading-tight">{fav.text}</span>
                 <span className="text-[8px] text-gray-500 mt-1">({fav.key})</span>
-              </div>
+              </Link>
             ))}
           </div>
         </MenuSection>

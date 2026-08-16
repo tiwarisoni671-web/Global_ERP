@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import ComingSoon from './pages/ComingSoon';
@@ -93,9 +93,52 @@ import PurchaseAnalysisReports from './pages/reports/PurchaseAnalysisReports';
 import PurchaseFinancialReports from './pages/reports/PurchaseFinancialReports';
 import PurchasePerformanceReports from './pages/reports/PurchasePerformanceReports';
 import DayBook from './pages/day-book/DayBook';
+import ManagementDashboard from './pages/reports/mis/ManagementDashboard';
+import PerformanceAnalysis from './pages/reports/mis/PerformanceAnalysis';
+import BusinessAnalysis from './pages/reports/mis/BusinessAnalysis';
+import KpiReports from './pages/reports/mis/KpiReports';
+import GstSales from './pages/reports/gst/GstSales';
+import GstPurchase from './pages/reports/gst/GstPurchase';
+import TaxAnalysis from './pages/reports/gst/TaxAnalysis';
+import GstReconciliation from './pages/reports/gst/Reconciliation';
+import TdsSales from './pages/reports/tds/TdsSales';
+import TdsPurchase from './pages/reports/tds/TdsPurchase';
+import TdsTaxAnalysis from './pages/reports/tds/TaxAnalysis';
+import TdsReconciliation from './pages/reports/tds/Reconciliation';
+import BackupRestore from './pages/backup/BackupRestore';
+import SystemSettings from './pages/setup/SystemSettings';
+import SystemUtilities from './pages/setup/Utilities';
 import './App.css';
 
 function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      const preventAndNavigate = (path) => {
+        e.preventDefault();
+        navigate(path);
+      };
+
+      if (e.key === 'F1') preventAndNavigate('/coming-soon');
+      else if (e.key === 'F2') preventAndNavigate('/sales/add-sale');
+      else if (e.key === 'F3') preventAndNavigate('/purchases/add-purchase');
+      else if (e.key === 'F4') preventAndNavigate('/receipt/new');
+      else if (e.key === 'F5') preventAndNavigate('/payment/new');
+      else if (e.key === 'F6') preventAndNavigate('/bank-receipt/new');
+      else if (e.key === 'F7') preventAndNavigate('/bank-payment/new');
+      else if (e.key === 'F8') preventAndNavigate('/journal/new');
+      else if (e.key === 'F9') preventAndNavigate('/products/product-list');
+      else if (e.key === 'F10') preventAndNavigate('/stock-entry/new');
+      else if (e.key === 'F11') preventAndNavigate('/stock-transfer/new');
+      else if (e.ctrlKey && e.key.toLowerCase() === 'l') preventAndNavigate('/reports/accounts/ledger-voucher');
+      else if (e.ctrlKey && e.key.toLowerCase() === 'o') preventAndNavigate('/reports/mis/kpi-reports');
+    };
+
+    document.addEventListener('keydown', handleKeyDown, true);
+    return () => document.removeEventListener('keydown', handleKeyDown, true);
+  }, [navigate]);
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -181,6 +224,18 @@ function App() {
         <Route path="reports/purchases/analysis" element={<PurchaseAnalysisReports />} />
         <Route path="reports/purchases/financial" element={<PurchaseFinancialReports />} />
         <Route path="reports/purchases/performance" element={<PurchasePerformanceReports />} />
+        <Route path="reports/mis/management-dashboard" element={<ManagementDashboard />} />
+        <Route path="reports/mis/performance-analysis" element={<PerformanceAnalysis />} />
+        <Route path="reports/mis/business-analysis" element={<BusinessAnalysis />} />
+        <Route path="reports/mis/kpi-reports" element={<KpiReports />} />
+        <Route path="reports/gst/sales" element={<GstSales />} />
+        <Route path="reports/gst/purchase" element={<GstPurchase />} />
+        <Route path="reports/gst/tax-analysis" element={<TaxAnalysis />} />
+        <Route path="reports/gst/reconciliation" element={<GstReconciliation />} />
+        <Route path="reports/tds/sales" element={<TdsSales />} />
+        <Route path="reports/tds/purchase" element={<TdsPurchase />} />
+        <Route path="reports/tds/tax-analysis" element={<TdsTaxAnalysis />} />
+        <Route path="reports/tds/reconciliation" element={<TdsReconciliation />} />
         <Route path="day-book" element={<DayBook />} />
         <Route path="sales/add-sale" element={<AddSale />} />
         <Route path="sales/sale-list" element={<SaleList />} />
@@ -193,6 +248,9 @@ function App() {
         <Route path="sales/courier-list" element={<CourierList />} />
         <Route path="sales/sale-return" element={<SaleReturn />} />
         <Route path="sales/sale-exchange-list" element={<SaleExchangeList />} />
+        <Route path="setup/backup-restore" element={<BackupRestore />} />
+        <Route path="setup/system-settings" element={<SystemSettings />} />
+        <Route path="setup/utilities" element={<SystemUtilities />} />
         <Route path="coming-soon" element={<ComingSoon />} />
         <Route path="*" element={<ComingSoon />} />
       </Route>
