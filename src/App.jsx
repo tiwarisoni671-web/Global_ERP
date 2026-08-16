@@ -108,6 +108,9 @@ import TdsReconciliation from './pages/reports/tds/Reconciliation';
 import BackupRestore from './pages/backup/BackupRestore';
 import SystemSettings from './pages/setup/SystemSettings';
 import SystemUtilities from './pages/setup/Utilities';
+import UserMaster from './pages/setup/UserMaster';
+import RoleMaster from './pages/setup/RoleMaster';
+import HelpSupport from './pages/setup/HelpSupport';
 import './App.css';
 
 function App() {
@@ -251,6 +254,9 @@ function App() {
         <Route path="setup/backup-restore" element={<BackupRestore />} />
         <Route path="setup/system-settings" element={<SystemSettings />} />
         <Route path="setup/utilities" element={<SystemUtilities />} />
+        <Route path="setup/user-master" element={<UserMaster />} />
+        <Route path="setup/role-master" element={<RoleMaster />} />
+        <Route path="setup/help-support" element={<HelpSupport />} />
         <Route path="coming-soon" element={<ComingSoon />} />
         <Route path="*" element={<ComingSoon />} />
       </Route>

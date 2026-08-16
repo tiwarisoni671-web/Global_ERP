@@ -229,7 +229,6 @@ const Sidebar = ({ onClose }) => {
               { text: 'Utilities', to: '/designation/utilities' }
             ]}
           />
-          <MenuItem icon={UserPlus} text="User & Role Master" />
         </MenuSection>
 
         <MenuSection title="TRANSACTIONS" defaultOpen={true}>
@@ -418,6 +417,14 @@ const Sidebar = ({ onClose }) => {
           <MenuItem icon={Settings} text="System Settings" to="/setup/system-settings" />
           <MenuItem icon={Repeat} text="Backup & Restore" to="/setup/backup-restore" />
           <MenuItem icon={Layers} text="Utilities" to="/setup/utilities" />
+          <MenuItem
+            icon={Users}
+            text="User & Role Master"
+            subItems={[
+              { text: 'User Master', to: '/setup/user-master' },
+              { text: 'Role Master', to: '/setup/role-master' }
+            ]}
+          />
         </MenuSection>
 
         <MenuSection title="FAVOURITES" defaultOpen={true}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { ChevronDown } from 'lucide-react';
 
@@ -27,10 +28,15 @@ const pieData = [
 ];
 
 export const DashboardCharts = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
       {/* Business Overview Line Chart */}
-      <div className="lg:col-span-5 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800/80 rounded-lg shadow-sm p-4 transition-colors">
+      <div 
+        onClick={() => navigate('/reports/mis/performance-analysis')}
+        className="lg:col-span-5 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800/80 rounded-lg shadow-sm p-4 transition-colors cursor-pointer hover:shadow-md"
+      >
         <div className="flex items-center justify-between mb-4">
           <div className="text-sm font-bold text-blue-900 dark:text-slate-100 tracking-wide uppercase">Business Overview <span className="text-gray-400 dark:text-gray-500 font-normal normal-case">(This Year)</span></div>
           <div className="flex items-center gap-2">
@@ -57,7 +63,10 @@ export const DashboardCharts = () => {
       </div>
 
       {/* Top Expenses Doughnut Chart */}
-      <div className="lg:col-span-4 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800/80 rounded-lg shadow-sm p-4 flex flex-col transition-colors">
+      <div 
+        onClick={() => navigate('/reports/mis/kpi-reports')}
+        className="lg:col-span-4 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800/80 rounded-lg shadow-sm p-4 flex flex-col transition-colors cursor-pointer hover:shadow-md"
+      >
          <div className="flex items-center justify-between mb-4">
           <div className="text-sm font-bold text-blue-900 dark:text-slate-100 tracking-wide uppercase">Top Expenses <span className="text-gray-400 dark:text-gray-500 font-normal normal-case">(This Year)</span></div>
           <div className="text-xs border dark:border-slate-800 dark:text-slate-300 rounded px-2 py-1 flex items-center gap-1 cursor-pointer">This Year <ChevronDown size={14} /></div>
@@ -127,7 +136,10 @@ export const DashboardCharts = () => {
             <span className="text-sm font-bold text-blue-900 dark:text-slate-200">Net Outstanding</span>
             <span className="text-lg font-bold text-blue-900 dark:text-blue-400">₹ 21,20,660.00</span>
           </div>
-          <button className="w-full bg-blue-50 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-600 dark:text-blue-400 text-xs font-semibold py-2.5 rounded-md border border-blue-200 dark:border-blue-900/40 transition-all">
+          <button 
+            onClick={() => navigate('/reports/mis/business-analysis')}
+            className="w-full bg-blue-50 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-600 dark:text-blue-400 text-xs font-semibold py-2.5 rounded-md border border-blue-200 dark:border-blue-900/40 transition-all"
+          >
             View All Outstanding
           </button>
         </div>
