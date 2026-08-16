@@ -17,7 +17,8 @@ import {
   Moon,
   PlusCircle,
   X,
-  Plus
+  Plus,
+  Keyboard
 } from 'lucide-react';
 
 export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
@@ -40,6 +41,13 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
   const [isReminderOpen, setIsReminderOpen] = useState(false);
   const [isMessageOpen, setIsMessageOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [isShortcutManagerOpen, setIsShortcutManagerOpen] = useState(false);
+  const [shortcuts, setShortcuts] = useState(() => {
+    return JSON.parse(localStorage.getItem('erp_shortcuts') || '{}');
+  });
+  const [shortcutsEnabled, setShortcutsEnabled] = useState(() => {
+    return localStorage.getItem('erp_shortcuts_enabled') !== 'false';
+  });
 
   const calcRef = useRef(null);
   const noteRef = useRef(null);
@@ -47,6 +55,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
   const reminderRef = useRef(null);
   const msgRef = useRef(null);
   const adminRef = useRef(null);
+  const shortcutRef = useRef(null);
 
   useEffect(() => {
     const clickOutside = (e) => {
@@ -57,6 +66,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
       if (reminderRef.current && !reminderRef.current.contains(e.target)) setIsReminderOpen(false);
       if (msgRef.current && !msgRef.current.contains(e.target)) setIsMessageOpen(false);
       if (adminRef.current && !adminRef.current.contains(e.target)) setIsAdminOpen(false);
+      if (shortcutRef.current && !shortcutRef.current.contains(e.target)) setIsShortcutManagerOpen(false);
     };
     document.addEventListener('mousedown', clickOutside);
     return () => document.removeEventListener('mousedown', clickOutside);
@@ -317,6 +327,80 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
           >
             {isDarkMode ? <Sun size={20} strokeWidth={1.5} className="text-amber-400" /> : <Moon size={20} strokeWidth={1.5} />}
             <span className="text-[10px] mt-1 font-medium">{isDarkMode ? 'Light' : 'Dark'}</span>
+          </div>
+
+          {/* Keyboard Shortcuts Settings Manager */}
+          <div className="relative" ref={shortcutRef}>
+            <div 
+              className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" 
+              onClick={() => setIsShortcutManagerOpen(!isShortcutManagerOpen)}
+              title="Manage Shortcut Keys"
+            >
+              <Keyboard size={20} strokeWidth={1.5} />
+              <span className="text-[10px] mt-1 font-medium">Shortcuts</span>
+            </div>
+
+            {isShortcutManagerOpen && (
+              <div className="absolute right-0 mt-2 w-72 bg-white dark:bg-slate-900 border border-gray-250 dark:border-slate-800 rounded-lg shadow-lg z-50 p-4 space-y-3.5 text-xs font-semibold">
+                <div className="flex items-center justify-between border-b pb-2 dark:border-slate-800">
+                  <span className="font-bold text-slate-800 dark:text-slate-200">Shortcut Keys Control</span>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input 
+                      type="checkbox" 
+                      checked={shortcutsEnabled}
+                      onChange={() => {
+                        const nextVal = !shortcutsEnabled;
+                        setShortcutsEnabled(nextVal);
+                        localStorage.setItem('erp_shortcuts_enabled', String(nextVal));
+                      }}
+                      className="sr-only peer"
+                    />
+                    <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                  </label>
+                </div>
+
+                <div className="space-y-2 overflow-y-auto max-h-[250px] pr-1">
+                  {Object.keys(shortcuts).map((keyName) => (
+                    <div key={keyName} className="flex items-center justify-between gap-2">
+                      <span className="bg-slate-100 dark:bg-slate-800 border px-1.5 py-0.5 rounded text-[10px] text-blue-600 font-bold font-mono min-w-[50px] text-center">
+                        {keyName.replace('_', ' ').toUpperCase()}
+                      </span>
+                      <select
+                        value={shortcuts[keyName]}
+                        onChange={(e) => {
+                          const nextPath = e.target.value;
+                          const updated = { ...shortcuts, [keyName]: nextPath };
+                          setShortcuts(updated);
+                          localStorage.setItem('erp_shortcuts', JSON.stringify(updated));
+                        }}
+                        className="p-1 border rounded dark:bg-slate-850 dark:text-slate-100 font-semibold focus:outline-none max-w-[150px] text-[10px]"
+                      >
+                        <option value="/sales/add-sale">Sale Entry</option>
+                        <option value="/purchases/add-purchase">Purchase Entry</option>
+                        <option value="/receipt/new">Receipt Entry</option>
+                        <option value="/payment/new">Payment Entry</option>
+                        <option value="/bank-receipt/new">Bank Receipt</option>
+                        <option value="/bank-payment/new">Bank Payment</option>
+                        <option value="/journal/new">Journal Entry</option>
+                        <option value="/products/product-list">Product List</option>
+                        <option value="/stock-entry/new">Stock Entry</option>
+                        <option value="/stock-transfer/new">Stock Transfer</option>
+                        <option value="/reports/accounts/ledger-voucher">Ledger Reports</option>
+                        <option value="/reports/mis/kpi-reports">KPI Reports</option>
+                        <option value="/hrms/attendance/daily">Daily Attendance</option>
+                        <option value="/hrms/attendance/leaves">Leave Requests</option>
+                        <option value="/hrms/attendance/holidays">Holiday Calendar</option>
+                        <option value="/hrms/payroll/structure">Salary Structure</option>
+                        <option value="/hrms/payroll/slips">Salary Slips</option>
+                        <option value="/hrms/payroll/pf-esi">PF & ESI Reports</option>
+                        <option value="/hrms/expenses/claims">Expense Claims</option>
+                        <option value="/coming-soon">Coming Soon</option>
+                      </select>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Help & Support */}

@@ -2,7 +2,7 @@ import React from 'react';
 import { QuickLinks, SummaryCards } from '../components/DashboardContent1';
 import { DashboardCharts } from '../components/DashboardCharts';
 import { DashboardTables } from '../components/DashboardTables';
-import { IndustrySolutions, ShortcutKeys, HelpAndSupport } from '../components/DashboardFooter';
+import { IndustrySolutions, HelpAndSupport } from '../components/DashboardFooter';
 
 const Dashboard = () => {
   return (
@@ -15,7 +15,6 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <div className="lg:col-span-10 flex flex-col gap-4">
           <IndustrySolutions />
-          <ShortcutKeys />
         </div>
         <div className="lg:col-span-2">
           <HelpAndSupport />

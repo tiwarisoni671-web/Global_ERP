@@ -111,31 +111,68 @@ import SystemUtilities from './pages/setup/Utilities';
 import UserMaster from './pages/setup/UserMaster';
 import RoleMaster from './pages/setup/RoleMaster';
 import HelpSupport from './pages/setup/HelpSupport';
+import DailyAttendance from './pages/hrms/DailyAttendance';
+import LeaveRequests from './pages/hrms/LeaveRequests';
+import HolidayCalendar from './pages/hrms/HolidayCalendar';
+import SalaryStructure from './pages/hrms/SalaryStructure';
+import SalarySlips from './pages/hrms/SalarySlips';
+import PfEsiReports from './pages/hrms/PfEsiReports';
+import ExpenseClaims from './pages/hrms/ExpenseClaims';
+import ExpenseLog from './pages/hrms/ExpenseLog';
+import Appraisals from './pages/hrms/Appraisals';
+import EmployeeTargets from './pages/hrms/EmployeeTargets';
+import ShiftSetup from './pages/hrms/ShiftSetup';
 import './App.css';
 
 function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Initialise default shortcuts if not exist
+    const stored = localStorage.getItem('erp_shortcuts');
+    if (!stored) {
+      const defaultShortcuts = {
+        'F1': '/coming-soon',
+        'F2': '/sales/add-sale',
+        'F3': '/purchases/add-purchase',
+        'F4': '/receipt/new',
+        'F5': '/payment/new',
+        'F6': '/bank-receipt/new',
+        'F7': '/bank-payment/new',
+        'F8': '/journal/new',
+        'F9': '/products/product-list',
+        'F10': '/stock-entry/new',
+        'F11': '/stock-transfer/new',
+        'ctrl_l': '/reports/accounts/ledger-voucher',
+        'ctrl_o': '/reports/mis/kpi-reports'
+      };
+      localStorage.setItem('erp_shortcuts', JSON.stringify(defaultShortcuts));
+      localStorage.setItem('erp_shortcuts_enabled', 'true');
+    }
+
     const handleKeyDown = (e) => {
+      const isEnabled = localStorage.getItem('erp_shortcuts_enabled') !== 'false';
+      if (!isEnabled) return;
+
+      const currentShortcuts = JSON.parse(localStorage.getItem('erp_shortcuts') || '{}');
+
       const preventAndNavigate = (path) => {
         e.preventDefault();
         navigate(path);
       };
 
-      if (e.key === 'F1') preventAndNavigate('/coming-soon');
-      else if (e.key === 'F2') preventAndNavigate('/sales/add-sale');
-      else if (e.key === 'F3') preventAndNavigate('/purchases/add-purchase');
-      else if (e.key === 'F4') preventAndNavigate('/receipt/new');
-      else if (e.key === 'F5') preventAndNavigate('/payment/new');
-      else if (e.key === 'F6') preventAndNavigate('/bank-receipt/new');
-      else if (e.key === 'F7') preventAndNavigate('/bank-payment/new');
-      else if (e.key === 'F8') preventAndNavigate('/journal/new');
-      else if (e.key === 'F9') preventAndNavigate('/products/product-list');
-      else if (e.key === 'F10') preventAndNavigate('/stock-entry/new');
-      else if (e.key === 'F11') preventAndNavigate('/stock-transfer/new');
-      else if (e.ctrlKey && e.key.toLowerCase() === 'l') preventAndNavigate('/reports/accounts/ledger-voucher');
-      else if (e.ctrlKey && e.key.toLowerCase() === 'o') preventAndNavigate('/reports/mis/kpi-reports');
+      // F-Keys
+      if (currentShortcuts[e.key]) {
+        preventAndNavigate(currentShortcuts[e.key]);
+      } 
+      // Ctrl + Key
+      else if (e.ctrlKey) {
+        const keyChar = e.key.toLowerCase();
+        const ctrlKeyName = `ctrl_${keyChar}`;
+        if (currentShortcuts[ctrlKeyName]) {
+          preventAndNavigate(currentShortcuts[ctrlKeyName]);
+        }
+      }
     };
 
     document.addEventListener('keydown', handleKeyDown, true);
@@ -257,6 +294,17 @@ function App() {
         <Route path="setup/user-master" element={<UserMaster />} />
         <Route path="setup/role-master" element={<RoleMaster />} />
         <Route path="setup/help-support" element={<HelpSupport />} />
+        <Route path="hrms/attendance/daily" element={<DailyAttendance />} />
+        <Route path="hrms/attendance/leaves" element={<LeaveRequests />} />
+        <Route path="hrms/attendance/holidays" element={<HolidayCalendar />} />
+        <Route path="hrms/payroll/structure" element={<SalaryStructure />} />
+        <Route path="hrms/payroll/slips" element={<SalarySlips />} />
+        <Route path="hrms/payroll/pf-esi" element={<PfEsiReports />} />
+        <Route path="hrms/expenses/claims" element={<ExpenseClaims />} />
+        <Route path="hrms/expenses/log" element={<ExpenseLog />} />
+        <Route path="hrms/performance/appraisals" element={<Appraisals />} />
+        <Route path="hrms/performance/targets" element={<EmployeeTargets />} />
+        <Route path="hrms/setup/shifts" element={<ShiftSetup />} />
         <Route path="coming-soon" element={<ComingSoon />} />
         <Route path="*" element={<ComingSoon />} />
       </Route>

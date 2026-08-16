@@ -25,7 +25,9 @@ import {
   UserPlus,
   ShieldAlert,
   Star,
-  X
+  X,
+  Calendar,
+  TrendingUp
 } from 'lucide-react';
 
 const MenuItem = ({ icon: Icon, text, hasDropdown, active = false, shortcut = '', to = "/coming-soon", subItems }) => {
@@ -161,17 +163,7 @@ const Sidebar = ({ onClose }) => {
               { text: 'Stock Count', to: '/products/stock-count' }
             ]}
           />
-          <MenuItem
-            icon={Users}
-            text="Employee Master"
-            subItems={[
-              { text: 'Employee Profile', to: '/employees/profile' },
-              { text: 'Job Information', to: '/employees/job-info' },
-              { text: 'Financial & Documents', to: '/employees/financial-docs' },
-              { text: 'Employee Records', to: '/employees/records' },
-              { text: 'Utilities', to: '/employees/utilities' }
-            ]}
-          />
+
           <MenuItem
             icon={FileText}
             text="Price List Master"
@@ -212,23 +204,7 @@ const Sidebar = ({ onClose }) => {
               { text: 'Utilities', to: '/branch/utilities' }
             ]}
           />
-          <MenuItem
-            icon={Briefcase}
-            text="Department Master"
-            subItems={[
-              { text: 'Department', to: '/department/list' },
-              { text: 'Reports & Status', to: '/department/reports-status' }
-            ]}
-          />
-          <MenuItem
-            icon={ShieldAlert}
-            text="Designation Master"
-            subItems={[
-              { text: 'Designation', to: '/designation/list' },
-              { text: 'Salary & Employees', to: '/designation/salary-employees' },
-              { text: 'Utilities', to: '/designation/utilities' }
-            ]}
-          />
+
         </MenuSection>
 
         <MenuSection title="TRANSACTIONS" defaultOpen={true}>
@@ -340,6 +316,63 @@ const Sidebar = ({ onClose }) => {
             ]}
           />
           <MenuItem icon={FileText} text="Day Book" to="/day-book" />
+        </MenuSection>
+
+        <MenuSection title="HRMS" defaultOpen={true}>
+          <MenuItem
+            icon={Users}
+            text="Employee Management"
+            subItems={[
+              { text: 'Employee Profile', to: '/employees/profile' },
+              { text: 'Job Information', to: '/employees/job-info' },
+              { text: 'Financial & Documents', to: '/employees/financial-docs' },
+              { text: 'Employee Directory', to: '/employees/records' },
+              { text: 'Utilities', to: '/employees/utilities' }
+            ]}
+          />
+          <MenuItem
+            icon={Calendar}
+            text="Attendance & Leave"
+            subItems={[
+              { text: 'Daily Attendance', to: '/hrms/attendance/daily' },
+              { text: 'Leave Requests', to: '/hrms/attendance/leaves' },
+              { text: 'Holiday Calendar', to: '/hrms/attendance/holidays' }
+            ]}
+          />
+          <MenuItem
+            icon={Calculator}
+            text="Payroll & Salary"
+            subItems={[
+              { text: 'Salary Structure', to: '/hrms/payroll/structure' },
+              { text: 'Generate Pay Slips', to: '/hrms/payroll/slips' },
+              { text: 'PF & ESI Reports', to: '/hrms/payroll/pf-esi' }
+            ]}
+          />
+          <MenuItem
+            icon={FileText}
+            text="Expense Claims"
+            subItems={[
+              { text: 'Reimbursement Claims', to: '/hrms/expenses/claims' },
+              { text: 'Claim Status Log', to: '/hrms/expenses/log' }
+            ]}
+          />
+          <MenuItem
+            icon={TrendingUp}
+            text="Performance & KPI"
+            subItems={[
+              { text: 'Appraisal Ratings', to: '/hrms/performance/appraisals' },
+              { text: 'Employee Targets', to: '/hrms/performance/targets' }
+            ]}
+          />
+          <MenuItem
+            icon={Settings}
+            text="HR Setup"
+            subItems={[
+              { text: 'Department Master', to: '/department/list' },
+              { text: 'Designation Master', to: '/designation/list' },
+              { text: 'Shift & Timings', to: '/hrms/setup/shifts' }
+            ]}
+          />
         </MenuSection>
 
         <MenuSection title="REPORTS" defaultOpen={true}>
