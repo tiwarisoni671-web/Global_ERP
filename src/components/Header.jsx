@@ -432,7 +432,16 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
               <div className="px-4 py-2 border-b text-gray-500 dark:text-gray-400">Status: Online</div>
               <Link to="/setup/user-master" onClick={() => setIsAdminOpen(false)} className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-850">Manage Users</Link>
               <Link to="/setup/system-settings" onClick={() => setIsAdminOpen(false)} className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-850">Settings</Link>
-              <div onClick={() => { setIsAdminOpen(false); alert("Logging out..."); }} className="block px-4 py-2 text-rose-600 hover:bg-rose-50 dark:hover:bg-slate-850 cursor-pointer">Logout</div>
+              <div 
+                onClick={() => { 
+                  setIsAdminOpen(false); 
+                  localStorage.removeItem('isLoggedIn');
+                  navigate('/login'); 
+                }} 
+                className="block px-4 py-2 text-rose-600 hover:bg-rose-50 dark:hover:bg-slate-850 cursor-pointer"
+              >
+                Logout
+              </div>
             </div>
           )}
         </div>

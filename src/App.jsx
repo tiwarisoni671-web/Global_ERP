@@ -122,6 +122,7 @@ import ExpenseLog from './pages/hrms/ExpenseLog';
 import Appraisals from './pages/hrms/Appraisals';
 import EmployeeTargets from './pages/hrms/EmployeeTargets';
 import ShiftSetup from './pages/hrms/ShiftSetup';
+import Login from './pages/Login';
 import './App.css';
 
 function App() {
@@ -181,6 +182,7 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/login" element={<Login />} />
       <Route path="/" element={<Layout />}>
         <Route index element={<Dashboard />} />
         <Route path="customers/customer-master" element={<CustomerMaster />} />
