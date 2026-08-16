@@ -151,10 +151,10 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
       {/* Quick Actions & User Profile */}
       <div className="flex items-center gap-6 ml-4">
         {/* Actions */}
-        <div className="hidden lg:flex items-center gap-4 text-gray-600 dark:text-gray-300">
+        <div className="flex items-center gap-4 text-gray-600 dark:text-gray-300 overflow-x-auto no-scrollbar max-w-[130px] xs:max-w-[180px] sm:max-w-[320px] md:max-w-[480px] lg:max-w-none whitespace-nowrap scroll-smooth py-1 shrink-0">
           
           {/* Calculator Popup */}
-          <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" ref={calcRef}>
+          <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors shrink-0" ref={calcRef}>
             <div onClick={() => setIsCalcOpen(!isCalcOpen)} className="flex flex-col items-center">
               <Calculator size={20} strokeWidth={1.5} />
               <span className="hidden xl:block text-[10px] mt-1 font-medium">Calculator</span>
@@ -183,7 +183,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
           </div>
 
           {/* Notepad Popup */}
-          <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" ref={noteRef}>
+          <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors shrink-0" ref={noteRef}>
             <div onClick={() => setIsNoteOpen(!isNoteOpen)} className="flex flex-col items-center">
               <StickyNote size={20} strokeWidth={1.5} />
               <span className="hidden xl:block text-[10px] mt-1 font-medium">Notepad</span>
@@ -205,7 +205,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
           </div>
 
           {/* Calendar Popup */}
-          <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" ref={calRef}>
+          <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors shrink-0" ref={calRef}>
             <div onClick={() => setIsCalOpen(!isCalOpen)} className="flex flex-col items-center">
               <CalendarIcon size={20} strokeWidth={1.5} />
               <span className="hidden xl:block text-[10px] mt-1 font-medium">Calendar</span>
@@ -236,7 +236,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
           </div>
 
           {/* Reminder / Notification Dropdown */}
-          <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" ref={reminderRef}>
+          <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors shrink-0" ref={reminderRef}>
             <div onClick={() => setIsReminderOpen(!isReminderOpen)} className="flex flex-col items-center">
               <div className="relative">
                 <Bell size={20} strokeWidth={1.5} />
@@ -258,7 +258,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
           </div>
 
           {/* Message Dropdown */}
-          <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" ref={msgRef}>
+          <div className="relative flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors shrink-0" ref={msgRef}>
             <div onClick={() => setIsMessageOpen(!isMessageOpen)} className="flex flex-col items-center">
                <div className="relative">
                 <MessageSquare size={20} strokeWidth={1.5} />
@@ -313,15 +313,14 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
             )}
           </div>
 
-          {/* Fullscreen */}
-          <div className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" onClick={toggleFullscreen}>
+          <div className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors shrink-0" onClick={toggleFullscreen}>
             {isFullscreen ? <Minimize size={20} strokeWidth={1.5} /> : <Maximize size={20} strokeWidth={1.5} />}
             <span className="hidden xl:block text-[10px] mt-1 font-medium">{isFullscreen ? 'Exit Full' : 'Fullscreen'}</span>
           </div>
 
           {/* Dark Mode */}
           <div 
-            className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" 
+            className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors shrink-0" 
             onClick={() => setIsDarkMode(prev => !prev)}
             title={isDarkMode ? "Switch to Light Theme" : "Switch to Dark Theme"}
           >
@@ -329,8 +328,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
             <span className="hidden xl:block text-[10px] mt-1 font-medium">{isDarkMode ? 'Light' : 'Dark'}</span>
           </div>
 
-          {/* Keyboard Shortcuts Settings Manager */}
-          <div className="relative" ref={shortcutRef}>
+          <div className="relative shrink-0" ref={shortcutRef}>
             <div 
               className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" 
               onClick={() => setIsShortcutManagerOpen(!isShortcutManagerOpen)}
@@ -404,7 +402,7 @@ export const TopHeader = ({ onMenuClick, onToggleDesktopSidebar }) => {
           </div>
 
           {/* Help & Support */}
-          <div className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors" onClick={() => navigate('/setup/help-support')}>
+          <div className="flex flex-col items-center cursor-pointer hover:text-blue-600 dark:hover:text-blue-450 transition-colors shrink-0" onClick={() => navigate('/setup/help-support')}>
             <HelpCircle size={20} strokeWidth={1.5} />
             <span className="hidden xl:block text-[10px] mt-1 font-medium">Help</span>
           </div>
